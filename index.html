@@ -7,11 +7,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/pxb2smz.css">  <!-- Adobe Fonts: elizeth + neue-kabel -->
 <style>
 :root{
   --ink:#111010; --teal:#009798; --paper:#f3f3f3; --gray:#8b8b8b; --tile:#d9d9d9;
   --sans:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --serif:"Elizeth", "Fraunces", Georgia, "Times New Roman", serif;
+  --serif:"elizeth", "Elizeth", "Fraunces", Georgia, "Times New Roman", serif;
   --word:"Jost", "Futura", "Century Gothic", system-ui, sans-serif;
   --gutter:clamp(16px, 6.25vw, 90px);
   box-sizing:border-box;
@@ -158,7 +159,7 @@ body[data-route="who"] #page-who, body[data-route="strategy"] #page-strategy, bo
 .strategy figure{ margin:0; display:flex; flex-direction:column; align-items:center; }
 .strategy .shape{ height:202px; display:flex; align-items:center; justify-content:center; }
 .strategy svg .ink{ fill:var(--ink); } .strategy svg .teal{ fill:var(--teal); }
-.strategy figcaption{ margin-top:27px; font-family:"Neue Kabel", var(--word); font-size:24px; font-weight:400; color:var(--ink); }
+.strategy figcaption{ margin-top:27px; font-family:"neue-kabel", "Neue Kabel", var(--word); font-size:24px; font-weight:400; color:var(--ink); }
 @media (max-width: 900px){
   .strategy{ padding-top:180px; display:grid; grid-template-columns:1fr 1fr; row-gap:64px; column-gap:16px; }
   .strategy figure{ min-width:0; }
@@ -191,7 +192,7 @@ body[data-route="who"] #page-who, body[data-route="strategy"] #page-strategy, bo
 
 /* Landing: label, headline, work grid */
 .landing-inner{ padding-top:236px !important; }
-.landing .eyebrow{ font-family:"Neue Kabel", var(--word); font-size:15px; }
+.landing .eyebrow{ font-family:"neue-kabel", "Neue Kabel", var(--word); font-size:15px; }
 .landing .headline{ margin-top:0; font-size:clamp(36px, 4.45vw, 64px); max-width:757px; }
 .work{ margin-top:clamp(64px, 8.75vw, 126px); display:flex; flex-direction:column; gap:clamp(48px, 5.97vw, 86px); scroll-margin-top:110px; }
 .work-row{ display:grid; column-gap:8.413%; align-items:start; }      /* 106px gutters at the 1260px Figma width */
@@ -368,7 +369,7 @@ html.locked, html.locked body{ height:100%; }
 .jump-btn{ padding:0 0 5px; background:none; border:0; border-bottom:1px solid currentColor; border-radius:0; cursor:pointer;
   font:600 13.07px/1.25 var(--sans); letter-spacing:0; color:var(--gray); display:inline-flex; align-items:center; gap:7px; transition:color .2s; }
 .jump-btn:hover, .jump-btn:focus-visible{ color:var(--teal); }
-.who-label{ margin:0; font-family:"Neue Kabel", var(--word); font-size:15px; color:var(--teal); }
+.who-label{ margin:0; font-family:"neue-kabel", "Neue Kabel", var(--word); font-size:15px; color:var(--teal); }
 .who-h2{ margin:10px 0 0; max-width:513px; font-family:var(--serif); font-weight:400; font-size:40px; line-height:1.1; color:var(--ink); }
 .who-strategy{ margin-top:clamp(120px, 29.8vw, 429px); scroll-margin-top:110px; }
 .who-strategy .strategy{ padding-top:0; margin-top:clamp(48px, 6.5vw, 94px); display:grid; grid-template-columns:repeat(4, 1fr); column-gap:clamp(24px, 7.3vw, 105px); }
@@ -408,7 +409,7 @@ html.locked, html.locked body{ height:100%; }
 @media (prefers-reduced-motion: reduce){ .strat-live .strat-g, .strat-live path.outer{ animation:none !important; } }
 /* Next project (end of each case study) */
 .next-project{ display:block; margin-top:clamp(96px, 11vw, 160px); padding-top:32px; border-top:1px solid rgba(17,16,16,.12); color:var(--ink); text-decoration:none; }
-.next-project .np-label{ display:block; font-family:"Neue Kabel", var(--word); font-size:15px; color:var(--teal); }
+.next-project .np-label{ display:block; font-family:"neue-kabel", "Neue Kabel", var(--word); font-size:15px; color:var(--teal); }
 .next-project .np-name{ margin-top:10px; display:inline-flex; align-items:center; gap:18px; font-family:var(--serif); font-size:clamp(40px, 4.45vw, 64px); line-height:1.1; transition:color .2s; }
 .next-project .np-arrow{ width:clamp(26px, 2.6vw, 38px); height:auto; transition:transform .3s cubic-bezier(.2,.7,.2,1); }
 .next-project:hover .np-name, .next-project:focus-visible .np-name{ color:var(--teal); }
@@ -506,7 +507,7 @@ textarea.cf-input{ height:110px; }
 
 /* Greeting above the headline (headline stays where it was) */
 .landing-inner{ padding-top:201px !important; }
-.landing .greeting{ margin:0 0 17px; text-align:center; font-family:"Neue Kabel", var(--word); font-size:15px; line-height:18px; color:var(--teal); }
+.landing .greeting{ margin:0 0 17px; text-align:center; font-family:"neue-kabel", "Neue Kabel", var(--word); font-size:15px; line-height:18px; color:var(--teal); }
 /* Footer: sunlight line */
 .legal{ align-items:baseline; gap:24px; }
 .legal-note{ text-align:center; }
@@ -518,7 +519,7 @@ textarea.cf-input{ height:110px; }
 
 /* ---------- Greeting (time of day, Eastern Time) ---------- */
 .greeting-wrap{ display:flex; justify-content:center; margin:0 0 17px; }
-.landing .greeting{ margin:0; font-family:"Neue Kabel", var(--word); font-size:15px; line-height:18px; color:var(--teal); }
+.landing .greeting{ margin:0; font-family:"neue-kabel", "Neue Kabel", var(--word); font-size:15px; line-height:18px; color:var(--teal); }
 /* ---------- Footer (Figma: Who I Am footer) ---------- */
 .footer{ grid-template-columns:minmax(0, 727fr) minmax(0, 444fr) auto !important; column-gap:0 !important; }
 .foot-title{ margin:19px 0 0; max-width:551px; font-family:var(--serif); font-weight:400; font-size:clamp(44px, 4.86vw, 70px); line-height:1.13; color:var(--ink); }
