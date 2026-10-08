@@ -133,7 +133,7 @@ body[data-route="who"] #page-who, body[data-route="strategy"] #page-strategy, bo
 .entry .org{ font-family:var(--serif); font-weight:500; font-size:22px; line-height:1.4; color:var(--teal); margin:0 0 9px; }
 .entry .role{ font-size:15px; color:var(--ink); margin:0 0 11px; }
 .entry .desc{ font-size:15px; line-height:1.25; color:var(--gray); margin:0; max-width:407px; }
-.entry .when{ position:absolute; right:0; top:28px; text-align:right; font-family:var(--serif); font-size:10px; line-height:1.6; color:var(--gray); }
+.entry .when{ position:absolute; right:0; top:4px; margin:0; text-align:right; font-family:var(--serif); font-size:10px; line-height:1.6; color:var(--gray); }
 .entry .when b{ font-weight:500; display:block; }
 .edu .role{ margin:14px 0 6px; } .edu .role:first-of-type{ margin-top:0; }
 .edu .desc{ line-height:1.5; }
@@ -371,7 +371,7 @@ html.locked, html.locked body{ height:100%; }
 .jump-btn:hover, .jump-btn:focus-visible{ color:var(--teal); }
 .who-label{ margin:0; font-family:"neue-kabel", "Neue Kabel", var(--word); font-size:15px; color:var(--teal); }
 .who-h2{ margin:10px 0 0; max-width:513px; font-family:var(--serif); font-weight:400; font-size:40px; line-height:1.1; color:var(--ink); }
-.who-strategy{ margin-top:clamp(120px, 29.8vw, 429px); scroll-margin-top:110px; }
+.who-strategy{ margin-top:clamp(110px, 13.9vw, 200px); scroll-margin-top:110px; }
 .who-strategy .strategy{ padding-top:0; margin-top:clamp(48px, 6.5vw, 94px); display:grid; grid-template-columns:repeat(4, 1fr); column-gap:clamp(24px, 7.3vw, 105px); }
 .who-strategy .strategy figure{ margin:0; display:flex; flex-direction:column; align-items:flex-start; }
 .who-strategy .strategy .shape{ height:257px; display:flex; align-items:center; justify-content:flex-start; }
@@ -605,6 +605,18 @@ textarea.cf-input{ height:110px; }
   .pol-grid.is-spread .pol-tag{ position:static; transform:none; opacity:1; margin:12px auto 0; display:flex; width:max-content; }
 }
 @media (prefers-reduced-motion: reduce){ .pol-tag{ transition:none; } }
+
+/* Headline: three set lines on desktop; natural wrapping on phones */
+.landing .headline{ max-width:none; }
+@media (max-width: 760px){ .hl-br{ display:none; } .landing .headline{ max-width:322px; } }
+/* Polaroid hover title: plain text (no pill) */
+.pol-tag{ height:auto; padding:0; border:0; border-radius:0; background:none; font:400 14px/1.3 var(--sans); color:var(--ink); }
+
+/* Enlarged polaroid: previous / next */
+.lb-nav{ margin-top:28px; display:flex; align-items:center; gap:14px; }
+.lb-arrow{ width:36px; height:36px; border-radius:50%; border:1.3px solid currentColor; background:none; color:var(--gray); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:color .2s; }
+.lb-arrow:hover, .lb-arrow:focus-visible{ color:var(--teal); }
+.lb-count{ min-width:44px; text-align:center; font:400 13px/1 var(--sans); color:var(--gray); font-variant-numeric:tabular-nums; }
 </style>
 </head>
 <body data-route="home">
@@ -641,7 +653,7 @@ textarea.cf-input{ height:110px; }
 <main class="landing" id="landing">
   <div class="landing-inner">
     <div class="greeting-wrap"><p class="greeting" id="greeting">Good afternoon</p></div>
-    <h1 class="headline">I’m a big picture designer bringing meaningful stories to light.</h1>
+    <h1 class="headline">I’m a big picture designer<br class="hl-br"> bringing meaningful<br class="hl-br"> stories to light.</h1>
     <section class="work" id="projects" aria-label="Projects">
       <div class="work-row" style="grid-template-columns:747fr 407fr">
         <figure class="work-item has-link"><a class="tile-cover" href="#otani" aria-label="Open the Otani case study"></a><video class="media tile-video" src="01-otani-tile-video.mp4" poster="02-otani-mineral-sun-care-bottles-on-sand-i-poster.jpg" muted loop playsinline preload="none" width="747" height="391" style="aspect-ratio:747 / 391; object-fit:cover" aria-label="Otani mineral sun care bottles on sand in dappled sunlight"></video><figcaption><span>OTANI</span><i aria-hidden="true"></i><b>MINERAL SUN CARE PACKAGING</b></figcaption></figure>
@@ -1020,7 +1032,7 @@ textarea.cf-input{ height:110px; }
   <div class="lb-scrim" data-lb-close></div>
   <div class="lb-stage">
     <img class="lb-img" id="lbImg" alt="" data-lb-close>
-    <div class="lb-card"><h3 class="lb-title" id="lbTitle"></h3><p class="lb-desc" id="lbDesc"></p><a class="lb-link" id="lbLink" href="https://www.kissmetwiceshop.com/" target="_blank" rel="noopener" hidden><span>VISIT KISS ME TWICE</span><svg viewBox="0 0 8 8" width="8" height="8" aria-hidden="true"><path d="M0.65 7.35L7.15 0.85M1.6 0.85L7.15 0.85L7.15 6.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    <div class="lb-card"><h3 class="lb-title" id="lbTitle"></h3><p class="lb-desc" id="lbDesc"></p><a class="lb-link" id="lbLink" href="https://www.kissmetwiceshop.com/" target="_blank" rel="noopener" hidden><span>VISIT KISS ME TWICE</span><svg viewBox="0 0 8 8" width="8" height="8" aria-hidden="true"><path d="M0.65 7.35L7.15 0.85M1.6 0.85L7.15 0.85L7.15 6.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="lb-nav"><button type="button" class="lb-arrow" data-step="-1" aria-label="Previous photo"><svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><path d="M13 7H1.6M6.2 2.4L1.6 7l4.6 4.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="lb-count" id="lbCount" aria-live="polite"></span><button type="button" class="lb-arrow" data-step="1" aria-label="Next photo"><svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><path d="M1 7h11.4M7.8 2.4L12.4 7l-4.6 4.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
   </div>
   <button type="button" class="contact-x lb-x" data-lb-close aria-label="Close"><svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><path d="M0.65 13.02L13.02 0.65M0.65 0.65L13.02 13.02" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </div>
@@ -1317,7 +1329,8 @@ document.querySelectorAll('.jump-btn').forEach(btn => btn.addEventListener('clic
    Hovering the pile (or tapping / tabbing to it) fans it out into the 4 x 3 grid; phones fan out on their own.
    PILE: offsets in Figma px from the grid's top centre at 1440 (polaroid = 203 wide), rotation in CSS degrees, z = stacking. */
 const PILE = [{"x": 6.5, "y": 360.5, "r": 0, "z": 12}, {"x": -45.5, "y": 357.5, "r": -14.09, "z": 1}, {"x": 20, "y": 343, "r": 11.13, "z": 2}, {"x": -25, "y": 336.5, "r": -3.44, "z": 3}, {"x": -2.5, "y": 342.5, "r": 0, "z": 4}, {"x": -11.5, "y": 347.5, "r": 6.66, "z": 5}, {"x": -2, "y": 338.5, "r": -7.91, "z": 11}, {"x": 42, "y": 379, "r": 12.73, "z": 7}, {"x": -12, "y": 379.5, "r": -29.66, "z": 8}, {"x": 39.5, "y": 358, "r": 17.34, "z": 9}, {"x": -11.5, "y": 303.5, "r": 0, "z": 10}, {"x": 23, "y": 407, "r": 25.41, "z": 6}];
-const PILE_H = 706;   // grid height while piled (Figma: intro sits 282px higher than in the spread layout)
+const PILE_H = 706;
+const PILE_LIFT = 95;   /* raise the pile on desktop so it sits higher in the first screen */   // grid height while piled (Figma: intro sits 282px higher than in the spread layout)
 const PILE_PHONE = { lift: 150, h: 480 };   // phones: pile sits higher, right under the nav
 const phoneMQ = matchMedia('(max-width: 760px)');
 const polPile = (() => {
@@ -1330,7 +1343,7 @@ const polPile = (() => {
   const place = () => {          // pile transforms relative to each polaroid's grid slot
     const g = grid.getBoundingClientRect(), k = items[0].offsetWidth / 203;
     items.forEach((it, i) => {
-      const d = PILE[i], cx = g.width / 2 + d.x * k, cy = d.y * k - (phoneMQ.matches ? PILE_PHONE.lift : 0);
+      const d = PILE[i], cx = g.width / 2 + d.x * k, cy = d.y * k - (phoneMQ.matches ? PILE_PHONE.lift : PILE_LIFT * k);
       it.style.setProperty('--px', (cx - (it.offsetLeft + it.offsetWidth / 2)) + 'px');
       it.style.setProperty('--py', (cy - (it.offsetTop + it.offsetHeight / 2)) + 'px');
       it.style.setProperty('--pr', d.r + 'deg');
@@ -1344,7 +1357,7 @@ const polPile = (() => {
     grid.style.height = '';
     items.forEach(it => { it.classList.remove('is-hover'); it.getAnimations().forEach(a => a.cancel()); });
     const k = place();
-    grid.style.height = ((phoneMQ.matches ? PILE_PHONE.h : PILE_H) * k) + 'px';
+    grid.style.height = ((phoneMQ.matches ? PILE_PHONE.h : PILE_H - PILE_LIFT) * k) + 'px';
     grid.classList.add('is-pile');
     state = 'pile';
     let last = 0;
@@ -1377,7 +1390,7 @@ const polPile = (() => {
   }
   grid.addEventListener('pointerover', e => { if (state === 'pile' && e.pointerType === 'mouse' && e.target.closest('.pol')) spread(); });
   grid.addEventListener('focusin', () => { if (state === 'pile') spread(); });
-  addEventListener('resize', () => { if (state === 'pile') { const k = place(); grid.style.height = ((phoneMQ.matches ? PILE_PHONE.h : PILE_H) * k) + 'px'; } });
+  addEventListener('resize', () => { if (state === 'pile') { const k = place(); grid.style.height = ((phoneMQ.matches ? PILE_PHONE.h : PILE_H - PILE_LIFT) * k) + 'px'; } });
   // play the opening every time Who I Am is opened
   let prev = document.body.dataset.route;
   new MutationObserver(() => {
@@ -1390,7 +1403,7 @@ const polPile = (() => {
 
 /* ---------- Who I Am polaroids: hover + enlarge ----------
    Edit title/desc here (same order as the grid). desc shows under the title in the enlarged view; empty = title only. */
-const POLS = [{"title": "My backyard dock", "desc": "", "zoom": "polaroid-01-large.webp", "w": 1123, "h": 1401}, {"title": "A sailboat", "desc": "", "zoom": "polaroid-02-large.webp", "w": 1119, "h": 1406}, {"title": "Favorite cafe in London", "desc": "", "zoom": "polaroid-03-large.webp", "w": 1103, "h": 1426}, {"title": "Friends wearing my brand", "desc": "", "link": "https://www.kissmetwiceshop.com/", "linkText": "VISIT KISS ME TWICE", "zoom": "polaroid-04-large.webp", "w": 1138, "h": 1382}, {"title": "The sun", "desc": "", "zoom": "polaroid-05-large.webp", "w": 1138, "h": 1382}, {"title": "A table I built", "desc": "", "zoom": "polaroid-06-large.webp", "w": 1119, "h": 1405}, {"title": "My love language", "desc": "", "zoom": "polaroid-07-large.webp", "w": 1119, "h": 1406}, {"title": "Good company", "desc": "", "zoom": "polaroid-08-large.webp", "w": 1119, "h": 1406}, {"title": "More good company", "desc": "", "zoom": "polaroid-09-large.webp", "w": 1138, "h": 1382}, {"title": "My brand, Kiss Me Twice", "desc": "", "link": "https://www.kissmetwiceshop.com/", "linkText": "VISIT KISS ME TWICE", "zoom": "polaroid-10-large.webp", "w": 1103, "h": 1426}, {"title": "Magazine photoshoot", "desc": "", "zoom": "polaroid-11-large.webp", "w": 1103, "h": 1426}, {"title": "The ocean", "desc": "", "zoom": "polaroid-12-large.webp", "w": 1103, "h": 1426}];
+const POLS = [{"title": "My backyard dock", "desc": "A little ways behind my house: a good place to unwind and, occasionally, a very convincing office.", "zoom": "polaroid-01-large.webp", "w": 1123, "h": 1401}, {"title": "A sailboat", "desc": "Living near an ocean inlet, I see boats every day. No traffic, no notifications. Just a sailboat with somewhere to be.", "zoom": "polaroid-02-large.webp", "w": 1119, "h": 1406}, {"title": "Favorite cafe in London", "desc": "My favorite vinyl café in Camden, London, where I lived for four months. Studying abroad had its perks.", "zoom": "polaroid-03-large.webp", "w": 1103, "h": 1426}, {"title": "Friends wearing my brand", "desc": "My friends wearing my clothing brand at our alma mater in the spring. A new drop is coming soon…", "link": "https://www.kissmetwiceshop.com/", "linkText": "VISIT KISS ME TWICE", "zoom": "polaroid-04-large.webp", "w": 1138, "h": 1382}, {"title": "The sun", "desc": "As you now know, this is the cornerstone of my design thinking and my day-to-day lifestyle.", "zoom": "polaroid-05-large.webp", "w": 1138, "h": 1382}, {"title": "A table I built", "desc": "Built and painted this with a friend. Still standing, which feels worth mentioning.", "zoom": "polaroid-06-large.webp", "w": 1119, "h": 1405}, {"title": "My love language", "desc": "…is cooking, especially for others. I’ll loosely follow a recipe, and presentation is everything.", "zoom": "polaroid-07-large.webp", "w": 1119, "h": 1406}, {"title": "Good company", "desc": "Dinner on the beach with a great group of people.", "zoom": "polaroid-08-large.webp", "w": 1119, "h": 1406}, {"title": "More good company", "desc": "A hike and a campfire in the middle of fall with another great group of people.", "zoom": "polaroid-09-large.webp", "w": 1138, "h": 1382}, {"title": "My brand, Kiss Me Twice", "desc": "Now that you’re familiar with Kiss Me Twice, just head over there already!", "link": "https://www.kissmetwiceshop.com/", "linkText": "VISIT KISS ME TWICE", "zoom": "polaroid-10-large.webp", "w": 1103, "h": 1426}, {"title": "Magazine photoshoot", "desc": "Behind the scenes of a Zipped magazine shoot we did in the spring.", "zoom": "polaroid-11-large.webp", "w": 1103, "h": 1426}, {"title": "The ocean", "desc": "This is where I could spend all 24 hours of my day, and luckily, it’s a fifteen-minute walk away.", "zoom": "polaroid-12-large.webp", "w": 1103, "h": 1426}];
 (() => {
   const grid = document.querySelector('.pol-grid'), lb = document.getElementById('aboutLb');
   if (!grid || !lb) return;
@@ -1414,6 +1427,7 @@ const POLS = [{"title": "My backyard dock", "desc": "", "zoom": "polaroid-01-lar
     const d = dataOf(it);
     img.width = d.w; img.height = d.h; img.src = d.zoom; img.alt = it.querySelector('img').alt;
     titleEl.textContent = d.title; descEl.textContent = d.desc;
+    document.getElementById('lbCount').textContent = (items.indexOf(it) + 1) + ' / ' + items.length;
     const link = document.getElementById('lbLink');            // e.g. Kiss Me Twice polaroids link to the shop
     if (d.link) { link.href = d.link; link.querySelector('span').textContent = d.linkText || 'VISIT SITE'; link.hidden = false; } else link.hidden = true;
   };
@@ -1455,13 +1469,21 @@ const POLS = [{"title": "My backyard dock", "desc": "", "zoom": "polaroid-01-lar
     fill(openItem);
     if (!reduce) img.animate([{ opacity: 0, transform: 'scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: 'ease-out' });
   }
-  lb.addEventListener('click', e => { if (e.target.closest('[data-lb-close]')) close(); });
+  let swiped = false, sx = 0, sy = 0;   // phones: swipe left/right to move between photos
+  lb.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  lb.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) { swiped = true; step(dx < 0 ? 1 : -1); } });
+  lb.addEventListener('click', e => {
+    if (swiped) { swiped = false; return; }
+    const st = e.target.closest('[data-step]'); if (st) { step(+st.dataset.step); return; }
+    if (e.target.closest('[data-lb-close]')) close();
+  });
   addEventListener('keydown', e => {
     if (lb.hidden) return;
     if (e.key === 'Escape') { e.preventDefault(); close(); }
     else if (e.key === 'ArrowRight') step(1);
     else if (e.key === 'ArrowLeft') step(-1);
-    else if (e.key === 'Tab') { e.preventDefault(); xBtn.focus(); }
+    else if (e.key === 'Tab') { e.preventDefault(); const f = [xBtn, ...lb.querySelectorAll('.lb-arrow')]; const k = f.indexOf(document.activeElement); f[(k + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus(); }
   });
   addEventListener('hashchange', () => { if (openItem) { busy = false; lb.classList.remove('show'); lb.hidden = true; openItem.classList.remove('is-open'); document.documentElement.classList.remove('sheet-open'); openItem = null; } });
 })();
