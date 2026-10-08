@@ -14,7 +14,7 @@
   --sans:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --serif:"elizeth", "Elizeth", "Fraunces", Georgia, "Times New Roman", serif;
   --word:"Jost", "Futura", "Century Gothic", system-ui, sans-serif;
-  --gutter:clamp(16px, 6.25vw, 90px);
+  --gutter:clamp(16px, 7.03vw, 90px);   /* 90px margins on every laptop/desktop (Figma) */
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top, 0px);
   padding-bottom:env(safe-area-inset-bottom, 0px);
@@ -32,7 +32,7 @@ a{ color:inherit; }
 
 /* ---------- Navigation ---------- */
 .nav{ position:fixed; top:0; left:0; right:0; z-index:50; padding-top:env(safe-area-inset-top, 0px); background:transparent; }   /* no background; follows the visitor as they scroll */
-.nav-inner{ width:calc(100% - 2 * var(--gutter)); max-width:1260px; margin:22px auto 0; height:80px; padding:0 clamp(0px, 2.8vw, 40px); display:flex; align-items:center; gap:30px; }
+.nav-inner{ width:calc(100% - 2 * var(--gutter)); max-width:none; margin:22px auto 0; height:80px; padding:0 clamp(0px, 2.8vw, 40px); display:flex; align-items:center; gap:30px; }
 .logo{ display:block; margin-right:auto; line-height:0; }
 .logo-svg{ height:42px; width:auto; display:block; overflow:visible; }   /* never clip the flower, still or spinning */
 .logo-svg .ink, .mark .ink{ fill:var(--ink); } .logo-svg .teal, .mark .teal{ fill:var(--teal); }
@@ -93,11 +93,11 @@ body[data-route="cao"] .opening, body[data-route="cao"] #landing,
 body[data-route="adidas"] .opening, body[data-route="adidas"] #landing,
 body[data-route="dura"] .opening, body[data-route="dura"] #landing{ display:none; }
 body[data-route="who"] #page-who, body[data-route="strategy"] #page-strategy, body[data-route="otani"] #page-otani, body[data-route="gradient"] #page-gradient, body[data-route="zipped"] #page-zipped, body[data-route="loop"] #page-loop, body[data-route="cao"] #page-cao, body[data-route="adidas"] #page-adidas, body[data-route="dura"] #page-dura{ display:block; }
-.page-inner{ width:calc(100% - 2 * var(--gutter)); max-width:1260px; margin:0 auto; }
+.page-inner{ width:calc(100% - 2 * var(--gutter)); max-width:none; margin:0 auto; }
 .eyebrow{ margin:0; font-size:12.4px; letter-spacing:.01em; color:var(--teal); text-align:center; }
 
 /* Landing */
-.landing-inner{ padding-top:183px !important; max-width:1260px !important; }
+.landing-inner{ padding-top:183px !important; max-width:none !important; }
 .landing .headline{ margin-top:13px; }
 .hero{ position:relative; width:min(650px, 100%); aspect-ratio:650 / 421; margin:81px auto 0; }
 /* flipbook: images swap instantly in the same spot */
