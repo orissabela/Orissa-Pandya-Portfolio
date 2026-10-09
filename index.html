@@ -1488,6 +1488,55 @@ const POLS = [{"title": "My backyard dock", "desc": "A little ways behind my hou
   addEventListener('hashchange', () => { if (openItem) { busy = false; lb.classList.remove('show'); lb.hidden = true; openItem.classList.remove('is-open'); document.documentElement.classList.remove('sheet-open'); openItem = null; } });
 })();
 
+/* Phones: the opening name starts stacked (orissa / bela / pandya) and un-stacks as it glides into "obp".
+   Each letter gets a wrapper whose transform blends from the stacked layout (V = 0) to none (V ≥ .55);
+   the approved animation itself is untouched. Runs once the opening has created its letters. */
+setTimeout(() => {
+  const phone = matchMedia('(max-width: 760px)');
+  const WORD_LEN = [6, 4, 6];                          // orissa · bela · pandya (grouped by position, left to right)
+  const wraps = letters.map(l => { const g = document.createElementNS(NS, 'g'); l.el.parentNode.insertBefore(g, l.el); g.appendChild(l.el); return g; });
+  let lay = null;
+  const layout = () => {
+    const bb = wraps.map(g => g.getBBox());                                  // in the wrappers' own space (includes each letter's position)
+    if (!bb[0].width) return null;
+    const order = bb.map((r, i) => i).sort((p, q) => bb[p].x - bb[q].x);
+    let at = 0;
+    const words = WORD_LEN.map(n => { const idx = order.slice(at, at += n), xs = idx.map(i => bb[i]); const x0 = Math.min(...xs.map(r => r.x)), x1 = Math.max(...xs.map(r => r.x + r.width)); return { idx, cx: (x0 + x1) / 2, w: x1 - x0 }; });
+    const base = Math.max(...words[0].idx.map(i => bb[i].y + bb[i].height));   // baseline (orissa has no descenders)
+    const top = Math.min(...bb.map(r => r.y)), bottom = Math.max(...bb.map(r => r.y + r.height));
+    const asc = base - top, desc = bottom - base;
+    const M = wraps[0].parentNode.getScreenCTM(); if (!M) return null;
+    const px = Math.hypot(M.a, M.b);                                             // screen px per unit
+    const st = svg.getBoundingClientRect();
+    const c = new DOMPoint(st.left + st.width / 2, st.top + st.height / 2).matrixTransform(M.inverse());
+    const cx = c.x, cy = c.y;                                                    // centre the stack on the stage
+    const S = 1;                                                                 // same letter size as the original, just stacked
+    const gap = asc * S * 1.32;                                                 // baseline-to-baseline
+    const blockTop = -asc * S, blockBottom = 2 * gap + desc * S;               // relative to the first baseline
+    const b0 = cy - (blockTop + blockBottom) / 2;
+    return words.map((w, l) => ({ ...w, ex: cx - S * w.cx, ey: b0 + l * gap - S * base, S }));
+  };
+  const ease = t => t * t * (3 - 2 * t);
+  let lastK = -1;
+  const tick = () => {
+    let k = 0;
+    if (phone.matches && root.classList.contains('locked')) {
+      if (!lay) lay = layout();
+      if (lay) k = 1 - ease(clamp(V / 0.55));
+    }
+    if (k !== lastK) {
+      lastK = k;
+      for (const w of lay || []) {
+        const a = 1 - k + k * w.S;
+        for (const i of w.idx) wraps[i].setAttribute('transform', k ? `matrix(${a} 0 0 ${a} ${w.ex * k} ${w.ey * k})` : '');
+      }
+    }
+    if (root.classList.contains('locked') || k) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+  phone.addEventListener('change', () => { lay = null; lastK = -1; if (!root.classList.contains('locked')) wraps.forEach(g => g.removeAttribute('transform')); else requestAnimationFrame(tick); });
+}, 0);
+
 /* Mobile menu */
 const menuBtn = document.querySelector('.menu-btn'), menuPanel = document.getElementById('menuPanel');
 menuBtn.addEventListener('click', () => {
