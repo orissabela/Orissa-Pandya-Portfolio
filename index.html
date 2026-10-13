@@ -1578,7 +1578,7 @@ setTimeout(() => {
     const st = svg.getBoundingClientRect();
     const c = new DOMPoint(st.left + st.width / 2, st.top + st.height / 2).matrixTransform(M.inverse());
     const cx = c.x, cy = c.y;                                                    // centre the stack on the stage
-    const S = 1;                                                                 // same letter size as the original, just stacked
+    const S = 1.35;                                                              // a bit bigger than the original, stacked
     const gap = asc * S * 1.32;                                                 // baseline-to-baseline
     const blockTop = -asc * S, blockBottom = 2 * gap + desc * S;               // relative to the first baseline
     const b0 = cy - (blockTop + blockBottom) / 2;
