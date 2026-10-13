@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="locked">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -670,6 +670,8 @@ html:not(.locked) .lw-1{ clip-path:inset(-10% 71.834% -10% 0.000%); }
 html:not(.locked) .lw-2{ clip-path:inset(-10% 44.949% -10% 33.176%); }
 html:not(.locked) .lw-3{ clip-path:inset(-10% 0% -10% 60.006%); }
 @media (prefers-reduced-motion: reduce){ .logo-svg > path.ink, .logo-mark, .logo-word{ transition:none !important; } }
+/* No nav movement while the page is opening: the logo only animates once the intro is in place (then on swipe in / swipe back) */
+html:not(.logo-ready) .logo-svg > path.ink, html:not(.logo-ready) .logo-mark, html:not(.logo-ready) .logo-word, html:not(.logo-ready) .logo-svg{ transition:none !important; }
 </style>
 </head>
 <body data-route="home">
@@ -1642,6 +1644,9 @@ setTimeout(() => {
   const fit = () => word.style.setProperty('--lw', (svgL.getBoundingClientRect().height * RATIO).toFixed(2) + 'px');
   new ResizeObserver(fit).observe(svgL); fit();
 })();
+
+/* Arm the nav logo animation only after the first frames have settled in their real (intro) state */
+requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => document.documentElement.classList.add('logo-ready'), 120)));
 
 /* Mobile menu */
 const menuBtn = document.querySelector('.menu-btn'), menuPanel = document.getElementById('menuPanel');
