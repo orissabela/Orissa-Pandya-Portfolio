@@ -740,6 +740,15 @@ html.menu-open .nav-inner, html.menu-open body.case-study .nav-inner{ background
 }
 
 /* ---------- Phones only: glass pill (desktop keeps the original flat pill) ---------- */
+/* Desktop dark mode, home page: same soft fade as light mode but in the dark paper colour, and no box behind the links */
+@media (min-width: 761px) and (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) body:not(.case-study) .nav.scrolled{ background:linear-gradient(to bottom, #111010 0%, #111010 62%, rgba(17,16,16,0) 100%) !important; }
+  :root:not([data-theme="light"]) body:not(.case-study) .nav.scrolled .nav-inner{ background:transparent !important; }
+}
+@media (min-width: 761px){
+  :root[data-theme="dark"] body:not(.case-study) .nav.scrolled{ background:linear-gradient(to bottom, #111010 0%, #111010 62%, rgba(17,16,16,0) 100%) !important; }
+  :root[data-theme="dark"] body:not(.case-study) .nav.scrolled .nav-inner{ background:transparent !important; }
+}
 @media (max-width: 760px){
   :root{ --glass-tint:rgba(255,255,255,.55); --glass-bg:rgba(245,245,245,.38); --glass-rim:rgba(255,255,255,.7); --glass-hi:rgba(255,255,255,.9); --glass-shadow:0 10px 30px rgba(17,16,16,.08), 0 1px 2px rgba(17,16,16,.05); }
   :root:not(#_) body.case-study .nav-inner, :root:not(#_) body.case-study .nav.scrolled .nav-inner, :root:not(#_) .nav.scrolled .nav-inner{
