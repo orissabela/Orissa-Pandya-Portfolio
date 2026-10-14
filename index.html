@@ -703,6 +703,26 @@ html:not(.logo-ready) .logo-svg > path.ink, html:not(.logo-ready) .logo-mark, ht
 .who-strategy .strategy figure.sp-on .strategy-svg{ opacity:0; }
 .who-strategy .strategy figure{ cursor:default; }
 @media (prefers-reduced-motion: reduce){ .sp-photo{ transition:opacity .15s ease; } }
+
+/* Nav for Nico's opening: just "obp" until the sun lands; no full-name swap */
+.logo-word{ display:none !important; }
+.logo-svg > path.ink{ transform:translateX(var(--obp-shift, 0px)) !important; opacity:var(--obp-op, 1) !important; transition:none !important; }
+html.locked .logo-svg > path.ink{ opacity:var(--obp-op, 0) !important; }   /* hidden from the very first frame of the intro */
+.logo-mark{ opacity:var(--mark-op, 1) !important; transition:transform 1s cubic-bezier(.45,0,.2,1) !important; }   /* driven by the sun's flight: hidden during the intro, crossfades in as it lands (no delay) */
+
+/* Phones: a bigger logo (flower + obp) and a slimmer menu icon */
+@media (max-width: 760px){
+  .nav .logo-svg, .nav.scrolled .logo-svg, body.case-study .nav .logo-svg, body.case-study .nav.scrolled .logo-svg{ height:44px !important; }
+  .nav-inner{ height:44px; }
+  .menu-btn{ width:30px; height:19px; }
+  .menu-btn::after{ content:""; position:absolute; inset:-13px -10px; }          /* keeps a comfortable tap area */
+  .menu-btn span{ width:30px; height:1.6px; }
+  .menu-btn span:nth-child(2){ top:8.7px; }
+  .menu-btn span:nth-child(3){ top:17.4px; }
+  .menu-btn[aria-expanded="true"] span:nth-child(1){ transform:translateY(8.7px) rotate(45deg); }
+  .menu-btn[aria-expanded="true"] span:nth-child(3){ transform:translateY(-8.7px) rotate(-45deg); }
+  body.case-study .nav-inner{ height:60px !important; }               /* case-study pill: room around the bigger logo */
+}
 </style>
 </head>
 <body data-route="home">
@@ -1684,6 +1704,30 @@ const armPosters = () => { const pg = document.getElementById('page-' + document
 addEventListener('hashchange', () => setTimeout(armPosters, 0));
 setTimeout(armPosters, 0);
 
+/* Nico's opening: measure where the formed sun is and where the nav flower sits, so the sun can fly there */
+let FLY = null;
+function measureFly() {
+  const mark = document.querySelector('.logo-mark'); if (!mark) return null;
+  const groups = flowers.map(f => f.g.getBoundingClientRect()).filter(r => r.width);
+  if (!groups.length) return null;
+  const L = Math.min(...groups.map(r => r.left)), T = Math.min(...groups.map(r => r.top)), R = Math.max(...groups.map(r => r.right)), B = Math.max(...groups.map(r => r.bottom));
+  const sb = stage.getBoundingClientRect(), mb = mark.getBoundingClientRect();
+  const ctm = svg.getScreenCTM(); const pt = svg.createSVGPoint(); pt.x = CENTER.x; pt.y = CENTER.y;
+  const c = ctm ? pt.matrixTransform(ctm) : { x: (L + R) / 2, y: (T + B) / 2 };   // aim with the sun's true centre (not its spinning edges)
+  const cx = c.x, cy = c.y;
+  return { ox: cx - sb.left, oy: cy - sb.top, dx: (mb.left + mb.width / 2) - cx, dy: (mb.top + mb.height / 2) - cy, sc: mb.height / Math.max(1, B - T) };
+}
+addEventListener('resize', () => { FLY = null; });
+// the corner stays empty during the intro; as the sun arrives, "obp" fades in and slides into place beside it
+const obpPaths = [...document.querySelectorAll('.logo-svg > path.ink')];
+const navMark = document.querySelector('.logo-mark');
+function obpShift(k) {
+  const a = Math.min(1, Math.max(0, (k - .55) / .45)), e = a * a * (3 - 2 * a);
+  const v = (-16 * (1 - e)).toFixed(2) + 'px', o = e.toFixed(3);
+  obpPaths.forEach(p => { p.style.setProperty('--obp-shift', v); p.style.setProperty('--obp-op', o); });
+  const m = Math.min(1, Math.max(0, (k - .86) / .14)); if (navMark) navMark.style.setProperty('--mark-op', m.toFixed(3));
+}
+
 /* Mobile menu */
 const menuBtn = document.querySelector('.menu-btn'), menuPanel = document.getElementById('menuPanel');
 menuBtn.addEventListener('click', () => {
@@ -1709,7 +1753,7 @@ const CENTER = { x: 720.8, y: 441.2 };             // center of the first shape
 const T = { fadeOthers: [1200, 1600], slide: [1300, 2150], morph: [2150, 3050], spin: [2700, 3000], teal: [3700, 4100],
             move4: [3700, 4100], end: 4100 };
 const STOP = [1200, 2150, 3700, 4100];   // frame 1 (full name), 2 (obp), 3 (shape), 4 (shape + teal)
-const FOLD_MS = 1700;
+const FOLD_MS = 2600;   // a little longer so the sun's drift to the logo can be seen
 const PACE = 1.25;                        // transition playback speed (1 = original pace)                    // last step: fold into the blue dot and reveal the landing page
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -1909,6 +1953,7 @@ function frame(now) {
   if (step === 4 && V === 4 && root.classList.contains('locked')) root.classList.remove('locked');
   const tt = V >= 3 ? STOP[3] : STOP[Math.floor(V)] + (STOP[Math.floor(V) + 1] - STOP[Math.floor(V)]) * (V % 1);
   const F = clamp(V - 3);                                // 0 -> 1 during the fold
+  const FL = seg(F, .62, 1);                             // Nico: once the sun has formed, it flies to the nav logo
 
   /* ---- Frame 1 -> 2 -> 3: the name becomes obp, obp becomes the first shape ---- */
   const s1 = seg(tt, ...T.slide), s3 = seg(tt, ...T.morph);
@@ -1955,19 +2000,19 @@ function frame(now) {
 
     // center + ring
     const pop = f === first ? easeOutBack(seg(tt, ...T.teal, lin)) : easeOutBack(seg(tt, f.bloomAt - 100, f.bloomAt + 350, lin));
-    const cs = pop * (1 - seg(F, .6, .85) * .6);
+    const cs = pop;
     f.teal.setAttribute('transform', `translate(${f.cx} ${f.cy}) scale(${cs}) translate(${-f.cx} ${-f.cy})`);
-    if (f === first) f.ring.style.opacity = landed * (1 - seg(F, .5, .7));
+    if (f === first) f.ring.style.opacity = landed;
     else {
       const rs = easeOutBack(seg(tt, f.bloomAt - 100, f.bloomAt + 350, lin));
       f.ring.setAttribute('transform', `translate(${f.cx} ${f.cy}) scale(${rs}) translate(${-f.cx} ${-f.cy})`);
-      f.ring.style.opacity = 1 - seg(F, .5, .7);
+      f.ring.style.opacity = 1;
     }
 
     // petals
     const n = f.petals.length;
     f.petals.forEach(pt => {
-      const r = easeInOut(clamp((F - .03 - (1 - pt.k / n) * .12) / .3));
+      const r = 0;                                       // petals stay: the sun keeps its form
       let b, op, rot = 0;
       if (f === first) {
         const spinIn = SPIN.get(pt.el);
@@ -1991,10 +2036,19 @@ function frame(now) {
   // the landing page rises up over the blue dot, like the page scrolling into view
   const landIn = seg(F, .45, 1);
   landing.style.transform = landIn >= 1 ? 'none' : `translateY(${(1 - landIn) * 100}vh)`;
-  stage.style.opacity = F >= 1 ? 0 : 1;
+  stage.style.opacity = F >= 1 ? 0 : (FLY ? 1 - seg(FL, .86, 1, lin) : 1);   // once it has arrived, the flying sun fades out as the nav flower fades in beneath it
   landing.style.pointerEvents = landIn > .5 ? '' : 'none';
   cue.style.opacity = 1 - seg(F, 0, .08, lin);
   cue.style.pointerEvents = F > .05 || step === 4 ? 'none' : '';
+  // the formed sun drifts to the top left and lands where the flower sits in the nav logo; "obp" slides over to make room
+  if (FL > 0 && !FLY) FLY = measureFly();
+  if (FLY) {
+    const k = Math.min(1, FL / .86);                    // the sun arrives first (86% through), then melts into the nav flower
+    stage.style.transformOrigin = `${FLY.ox}px ${FLY.oy}px`;
+    stage.style.transform = k > 0 ? `translate(${FLY.dx * k}px, ${FLY.dy * k}px) scale(${1 + (FLY.sc - 1) * k})` : '';
+    stage.style.zIndex = k > 0 && F < 1 ? 80 : '';
+  }
+  obpShift(FL);
 
   if (!shown) { shown = true; requestAnimationFrame(() => svg.style.visibility = 'visible'); }
   requestAnimationFrame(frame);
