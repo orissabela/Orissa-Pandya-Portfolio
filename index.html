@@ -1374,7 +1374,7 @@ document.querySelectorAll('.jump-btn').forEach(btn => btn.addEventListener('clic
    In this preview "Send" opens the visitor's email app with the message filled in; once the site is on Vercel,
    set FORM_ENDPOINT (e.g. a Formspree URL) and messages are delivered straight to Orissa's inbox. */
 (() => {
-  const FORM_ENDPOINT = '';
+  const FORM_ENDPOINT = 'https://formspree.io/f/myeknrpb';   // messages go straight to Orissa's inbox
   const TO = 'orissabela@gmail.com';
   const sheet = document.getElementById('contactSheet'), form = document.getElementById('contactForm');
   const status = form.querySelector('.cf-status'), email = form.elements.email, msg = form.elements.message;
