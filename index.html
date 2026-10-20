@@ -777,7 +777,8 @@ html.menu-open .nav-inner, html.menu-open body.case-study .nav-inner{ background
 .pc-track::-webkit-scrollbar{ display:none; }
 .pc-run{ display:flex; gap:22px; width:max-content; }
 .pc-card{ margin:0; flex:none; }
-.pc-card img{ display:block; height:300px; width:auto; max-width:none; }
+.pc-card img{ display:block; height:300px; width:auto; max-width:none; opacity:.8; transition:opacity .3s ease; }
+.pc-card:hover img{ opacity:1; }
 .pc-card figcaption{ margin-top:12px; font-family:"Instrument Sans", system-ui, -apple-system, sans-serif; font-size:16px; font-weight:400; line-height:20px; letter-spacing:normal; text-transform:none; color:var(--gray); }   /* body-copy style, light gray */
 @media (max-width: 760px){ .process{ margin:72px 0 60px; } .pc-card img{ height:220px; } .pc-run{ gap:14px; } }
 /* Who I Am strategy: no photos any more; icons stay put; titles still turn teal */
@@ -1810,10 +1811,14 @@ document.querySelectorAll('.pc-track').forEach(track => {
   let looping = false, visible = false, pos = 0, last = 0, holdUntil = 0, hovering = false;
   const setup = () => {
     if (looping || still || !track.clientWidth) return;
-    if (run.scrollWidth <= track.clientWidth + 24) return;            // fits on screen: no need to rotate
-    cards.forEach(c => { const d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); const im = d.querySelector('img'); if (im) im.alt = ''; run.appendChild(d); });
+    // fill at least one screen width (repeat the photos if there are only a few), then double it for a seamless loop
+    let guard = 0;
+    while (run.scrollWidth < track.clientWidth + 60 && guard++ < 24) cards.forEach(c => { const d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); const im = d.querySelector('img'); if (im) im.alt = ''; run.appendChild(d); });
+    [...run.children].forEach(c => { const d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); const im = d.querySelector('img'); if (im) im.alt = ''; run.appendChild(d); });
     looping = true; pos = track.scrollLeft;
   };
+  run.querySelectorAll('img').forEach(im => im.addEventListener('load', () => { if (visible) setup(); }));
+  addEventListener('resize', () => { if (visible) setup(); });
   new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; if (visible) setup(); })).observe(track);
   const hold = () => { holdUntil = performance.now() + 2600; };
   track.addEventListener('mouseenter', () => { hovering = true; });
