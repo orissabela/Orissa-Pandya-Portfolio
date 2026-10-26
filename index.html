@@ -779,6 +779,9 @@ html.menu-open .nav-inner, html.menu-open body.case-study .nav-inner{ background
 .pc-card{ margin:0; flex:none; }
 .pc-card img{ display:block; height:300px; width:auto; max-width:none; opacity:.8; transition:opacity .3s ease; }
 .pc-card:hover img{ opacity:1; }
+/* Opening cue: "Scroll down" on computers, "Swipe up" on touch screens */
+.cue-touch{ display:none; }
+@media (hover: none) and (pointer: coarse){ .cue-desk{ display:none; } .cue-touch{ display:inline; } }
 .pc-card figcaption{ margin-top:12px; font-family:"Instrument Sans", system-ui, -apple-system, sans-serif; font-size:16px; font-weight:400; line-height:20px; letter-spacing:normal; text-transform:none; color:var(--gray); }   /* body-copy style, light gray */
 @media (max-width: 760px){ .process{ margin:72px 0 60px; } .pc-card img{ height:220px; } .pc-run{ gap:14px; } }
 /* Who I Am strategy: no photos any more; icons stay put; titles still turn teal */
@@ -811,7 +814,7 @@ html.menu-open .nav-inner, html.menu-open body.case-study .nav-inner{ background
   <div class="stage" id="stage">
     <svg id="stageSvg" viewBox="130 250 1180 440" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Orissa Bela Pandya: the initials o, b and p become a family of flower-like shapes"></svg>
     <div class="cue" id="cue">
-      <button class="pill" id="scrollBtn" tabindex="-1" aria-hidden="true">SCROLL DOWN</button>
+      <button class="pill" id="scrollBtn" tabindex="-1" aria-hidden="true"><span class="cue-desk">SCROLL DOWN</span><span class="cue-touch">SWIPE UP</span></button>
       <svg class="arrow" viewBox="0 0 9 53" aria-hidden="true"><path d="M4.5 0V51M.8 47.5 4.5 51.5 8.2 47.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
     </div>
   </div>
