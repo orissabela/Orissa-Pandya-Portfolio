@@ -806,6 +806,9 @@ html.locked .music{ opacity:0; pointer-events:none; }
 .music-btn:hover .m-label, .music-btn:hover .m-now, .music-btn[aria-expanded="true"] .m-label{ color:var(--teal); }
 .music-btn:hover .m-now-run{ animation-play-state:paused; }
 .music-btn:focus:not(:focus-visible){ outline:none; }   /* no outline box after a mouse click; keyboard users still see it */
+/* "Currently listening to" only on the home page and Who I Am, not in the case studies */
+body.case-study .music{ visibility:hidden; pointer-events:none; }
+body.case-study .menu-into{ display:none !important; }
 @keyframes m-marquee{ to{ transform:translateX(-50%); } }
 @media (prefers-reduced-motion: reduce){ .m-now-run{ animation:none; } }
 .music-card{ position:absolute; top:calc(100% + 12px); left:0; width:380px; padding:12px 12px 10px; background:var(--paper); border:1px solid rgba(139,139,139,.28); border-radius:16px; box-shadow:0 14px 40px rgba(17,16,16,.14);
